@@ -12,6 +12,6 @@ app.get('/', function (req, res) {
 });
 //app.get( '/', routes.index );
 
-server.listen(80, function () {
+server.listen(80, '0.0.0.0', function () {
     console.log('Node server is running...');
 });
