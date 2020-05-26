@@ -2,7 +2,7 @@
   "name": "dodleme-server",
   "version": "1.0.0",
   "description": "Backend de l'application web gérant les disponibilités d’un groupe de personnes pour fixer des événements",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
