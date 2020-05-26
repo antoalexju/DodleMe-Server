@@ -2,6 +2,8 @@
 
 var express = require('express');
 var app = express();
+var server = require('http').createServer(app)
+var io = io.listen(server);
 
 //app.use(express.static('/home/dodle/DodleMe-WebUI/dist/'));
 
@@ -10,6 +12,6 @@ app.get('/', function (req, res) {
 });
 //app.get( '/', routes.index );
 
-var server = app.listen(80, 'dodle.antonylaget.com',  function () {
+server.listen(80, function () {
     console.log('Node server is running...');
 });
