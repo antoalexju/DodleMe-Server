@@ -8,5 +8,5 @@ app.get('/', function (req, res) {
 });
 
 var server = app.listen(80, '10.0.0.37',  function () {
-    console.log('Node server is running..');
+    console.log('Node server is running...');
 });
