@@ -3,10 +3,10 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static('/home/dodle/DodleMe-WebUI/dist/'));
+//app.use(express.static('/home/dodle/DodleMe-WebUI/dist/'));
 
 app.get('/', function (req, res) {
-    res.sendFile('index.html');
+    res.sendFile('index.html', { root: '../../dodle/DodleMe-WebUI/dist/' })
 });
 //app.get( '/', routes.index );
 
