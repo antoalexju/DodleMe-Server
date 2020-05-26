@@ -19,8 +19,6 @@
   "dependencies": {
     "express": "^4.17.1",
     "forever": "^2.0.0",
-    "forever-service": "^0.5.11",
-    "minimist": "^1.2.5",
-    "uglify-js": "^2.6.0"
+    "forever-service": "^0.5.11"
   }
 }
