@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 
-app.use(express.static('../../DodleMe-WebUI/dist/'));
+app.use(express.static('/home/dodle/DodleMe-WebUI/dist/'));
 
 app.get('/', function (req, res) {
     res.sendFile('index.html');
