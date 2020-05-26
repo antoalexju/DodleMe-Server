@@ -8,7 +8,8 @@ app.use(express.static('../../DodleMe-WebUI/dist/'));
 app.get('/', function (req, res) {
     res.sendFile('index.html');
 });
+//app.get( '/', routes.index );
 
-var server = app.listen(80, '10.0.0.37',  function () {
+var server = app.listen(80, 'dodle.antonylaget.com',  function () {
     console.log('Node server is running...');
 });
