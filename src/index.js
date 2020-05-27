@@ -3,7 +3,6 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app)
-var io = io.listen(server);
 
 //app.use(express.static('/home/dodle/DodleMe-WebUI/dist/'));
 

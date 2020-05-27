@@ -4,6 +4,7 @@
   "description": "Backend de l'application web gérant les disponibilités d’un groupe de personnes pour fixer des événements",
   "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
