@@ -1,6 +1,6 @@
 //Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
 
-var express = require('express');
+/*var express = require('express');
 var vhost = require('vhost')
 var http = require('http')
 
@@ -39,6 +39,25 @@ app.use(vhost('dodle.antonylaget.com', function (req, res) {
 }))
 */
 
-server.listen(80, '10.0.0.37', function () {
+/*server.listen(80, '10.0.0.37', function () {
+    console.log('Node server is running...');
+});*/
+
+
+//Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
+
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app)
+
+app.use(express.static('../DodleMe-WebUI/dist/'));
+
+app.get('/', function (req, res) {
+    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
+});
+//app.get( '/', routes.index );
+
+server.listen(80, '0.0.0.0', function () {
     console.log('Node server is running...');
 });
+
