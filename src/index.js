@@ -5,8 +5,13 @@ var vhost = require('vhost')
 var http = require('http')
 
 var app = express();
-//var server = require('http').createServer(app)
+app.use(express.static('../DodleMe-WebUI/dist/'));
+app.get('/', function (req, res) {
+    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
+});
 
+//var server = require('http').createServer(app)
+/*
 app.use(vhost('dodle.antonylaget.com', function handle (req, res, next) {
     // for match of "foo.bar.example.com:8080" against "*.*.example.com":
     console.dir(req.vhost.host) // => 'foo.bar.example.com:8080'
@@ -16,11 +21,9 @@ app.use(vhost('dodle.antonylaget.com', function handle (req, res, next) {
     console.dir(req.vhost[1]) // => 'bar'
 }))
 
-app.use(express.static('../DodleMe-WebUI/dist/'));
 
-/*app.get('/', function (req, res) {
-    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
-});*/
+
+
 //app.get( '/', routes.index );
 
 // an external api server in any framework
@@ -34,6 +37,7 @@ app.use(vhost('dodle.antonylaget.com', function (req, res) {
     // pass the request to a standard Node.js HTTP server
     httpServer.emit('request', req, res)
 }))
+*/
 
 server.listen(80, '10.0.0.37', function () {
     console.log('Node server is running...');
