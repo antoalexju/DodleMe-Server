@@ -1,8 +1,8 @@
 //Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
 
-/*var express = require('express');
-var vhost = require('vhost')
-var http = require('http')
+var express = require('express');
+//var vhost = require('vhost')
+var server = require('http').createServer(app)
 
 var app = express();
 app.use(express.static('../DodleMe-WebUI/dist/'));
@@ -10,7 +10,6 @@ app.get('/', function (req, res) {
     res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
 });
 
-//var server = require('http').createServer(app)
 /*
 app.use(vhost('dodle.antonylaget.com', function handle (req, res, next) {
     // for match of "foo.bar.example.com:8080" against "*.*.example.com":
@@ -20,9 +19,6 @@ app.use(vhost('dodle.antonylaget.com', function handle (req, res, next) {
     console.dir(req.vhost[0]) // => 'foo'
     console.dir(req.vhost[1]) // => 'bar'
 }))
-
-
-
 
 //app.get( '/', routes.index );
 
@@ -39,25 +35,6 @@ app.use(vhost('dodle.antonylaget.com', function (req, res) {
 }))
 */
 
-/*server.listen(80, '10.0.0.37', function () {
-    console.log('Node server is running...');
-});*/
-
-
-//Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
-
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app)
-
-app.use(express.static('../DodleMe-WebUI/dist/'));
-
-app.get('/', function (req, res) {
-    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
-});
-//app.get( '/', routes.index );
-
-server.listen(80, '0.0.0.0', function () {
+server.listen(80, '10.0.0.37', function () {
     console.log('Node server is running...');
 });
-
