@@ -4,10 +4,10 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app)
 
-app.use(express.static('../../dodle/DodleMe-WebUI/dist/'));
+app.use(express.static('../DodleMe-WebUI/dist/'));
 
 app.get('/', function (req, res) {
-    res.sendFile('index.html', { root: '../../dodle/DodleMe-WebUI/dist/' })
+    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
 });
 //app.get( '/', routes.index );
 
