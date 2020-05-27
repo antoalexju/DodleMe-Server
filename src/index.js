@@ -35,6 +35,6 @@ app.use(vhost('dodle.antonylaget.com', function (req, res) {
     httpServer.emit('request', req, res)
 }))
 
-server.listen(80, '0.0.0.0', function () {
+server.listen(80, '10.0.0.37', function () {
     console.log('Node server is running...');
 });
