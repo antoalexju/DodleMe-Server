@@ -1,17 +1,40 @@
 //Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
 
-var express = require('express');
-var app = express();
-var server = require('http').createServer(app)
+//imports
+let express = require('express');
+let bodyParser = require('body-parser');
+let apiRouter = require('./apiRouter').router;
 
-app.use(express.static('../DodleMe-WebUI/dist/'));
+let server = express();
 
-app.get('/', function (req, res) {
-    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
+//server config
+server.use(express.static('../DodleMe-WebUI/dist/'));
+server.use(bodyParser.urlencoded({extended: true}));
+server.use(bodyParser.json());
+server.set('json spaces', 4);
+
+server.use('/api', apiRouter);
+
+server.get('/api', (req, res) => {
+    res.status(400).json({
+        message: "empty query"
+    })
 });
-//app.get( '/', routes.index );
+
+server.get('/api/user', (req, res) => {
+    res.status(400).json({
+        message: "choose user action"
+    })
+});
+
+server.get('/api/event', (req, res) => {
+    res.status(400).json({
+        message: "choose event action"
+    })
+});
 
 server.listen(80, '0.0.0.0', function () {
     console.log('Node server is running...');
 });
+
 
