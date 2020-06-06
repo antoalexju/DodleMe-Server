@@ -103,7 +103,7 @@ module.exports = {
                 }
             ],
         }).then(user => {
-            if(user != null) res.status(200).json(user);
+            if(user != null || user !== [] ) res.status(200).json(user);
             else throw new Error("User: " + req.params.id + " not found");
         }).catch(err => {
             res.status(404).json({
