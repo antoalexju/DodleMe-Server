@@ -26,7 +26,7 @@ module.exports = {
         });
     },
     badMethod: function (req, res) {
-        return res.status(400).json({
+        return res.status(501).json({
             usage: 'bad method, see documentation, accepted GET or POST',
             code: 400
         });

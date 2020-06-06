@@ -53,7 +53,7 @@ exports.router = (function () {
     //EVENT ROUTING
     makeRoute(apiRouter, event + '/list', GET, eventController.list)
 
-    makeRoute(apiRouter, event + '/:id', GET, userController.getEvent);
+    makeRoute(apiRouter, event + '/:id', GET, eventController.getEvent);
 
     //api routing
     makeRoute(apiRouter, '/version/', GET, apiController.version);
