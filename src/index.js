@@ -1,23 +1,26 @@
 //Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
 
 //imports
-let express = require('express');
-let bodyParser = require('body-parser');
-let apiRouter = require('./apiRouter').router;
+const express = require('express');
+const bodyParser = require('body-parser');
+const apiRouter = require('./apiRouter').router;
 
-let server = express();
+const server = express();
 
 //server config
 server.use(express.static('../DodleMe-WebUI/dist/'));
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.set('json spaces', 4);
+const port = 80;
 
 server.use('/api', apiRouter);
 
 server.get('/api', (req, res) => {
     res.status(400).json({
-        message: "empty query"
+        message: "Dodle.Me API",
+        usage: "See documentation on github",
+        version: 1
     })
 });
 
@@ -33,8 +36,9 @@ server.get('/api/event', (req, res) => {
     })
 });
 
-server.listen(80, '0.0.0.0', function () {
-    console.log('Node server is running...');
+
+server.listen(port, '0.0.0.0', function () {
+    console.log('Node server is running... (listening on port: ' + port + ')');
 });
 
 

@@ -1,7 +1,8 @@
 //imports
-let express = require('express');
-let userController = require('./routes/userController');
-let apiController = require('./routes/apiController');
+const express = require('express');
+const userController = require('./routes/userController');
+const eventController = require('./routes/eventController');
+const apiController = require('./routes/apiController');
 
 
 //routing
@@ -16,6 +17,15 @@ exports.router = (function () {
 
     apiRouter.route('/user/login/').get(apiController.pleasePost);
     apiRouter.route('/user/login/').post(userController.login);
+
+    apiRouter.route('/user/list/').get(userController.list);
+    apiRouter.route('/user/list/').post(apiController.pleaseGet);
+
+    apiRouter.route('/user/:id/').get(userController.getUser);
+    apiRouter.route('/user/:id/').post(apiController.pleaseGet);
+
+    apiRouter.route('/event/list/').get(eventController.list);
+    apiRouter.route('/event/list/').post(apiController.pleaseGet);
 
     return apiRouter;
 })();
