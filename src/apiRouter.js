@@ -24,8 +24,18 @@ exports.router = (function () {
     apiRouter.route('/user/:id/').get(userController.getUser);
     apiRouter.route('/user/:id/').post(apiController.pleaseGet);
 
+    apiRouter.route('/user/:id/events').get(userController.getUserEvents);
+    apiRouter.route('/user/:id/events').post(apiController.pleaseGet);
+
+    apiRouter.route('/user/:id/event/:idE/').get(userController.getUserEvent);
+    apiRouter.route('/user/:id/event/:idE/').post(apiController.pleaseGet);
+
     apiRouter.route('/event/list/').get(eventController.list);
     apiRouter.route('/event/list/').post(apiController.pleaseGet);
+
+    apiRouter.route('/event/:id/').get(eventController.getEvent);
+    apiRouter.route('/event/:id/').post(apiController.pleaseGet);
+
 
     return apiRouter;
 })();

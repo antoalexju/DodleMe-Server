@@ -10,7 +10,7 @@ module.exports = db.sequelize.define('Event', {
   },
   creator: {
     type: sequelize.DataTypes.INTEGER(10).UNSIGNED,
-    allowNull: true,
+    allowNull: false,
     references: {
       model: 'User',
       key: 'idUser'
@@ -18,11 +18,11 @@ module.exports = db.sequelize.define('Event', {
   },
   linkId: {
     type: sequelize.DataTypes.STRING(10),
-    allowNull: true
+    allowNull: false
   },
   title: {
     type: sequelize.DataTypes.STRING(25),
-    allowNull: true
+    allowNull: false
   },
   location: {
     type: sequelize.DataTypes.STRING(25),
@@ -38,11 +38,11 @@ module.exports = db.sequelize.define('Event', {
   },
   status: {
     type: sequelize.DataTypes.ENUM('openned','closed','canceled'),
-    allowNull: true
+    allowNull: false
   },
   isPrivate: {
     type: sequelize.DataTypes.INTEGER(1),
-    allowNull: true
+    allowNull: false
   },
   finalOption: {
     type: sequelize.DataTypes.INTEGER(10).UNSIGNED,

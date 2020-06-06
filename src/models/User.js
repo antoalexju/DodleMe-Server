@@ -10,7 +10,7 @@ module.exports = db.sequelize.define('User', {
     },
     alias: {
       type: sequelize.DataTypes.STRING(25),
-      allowNull: true
+      allowNull: false
     }
   }, {
     tableName: 'User'

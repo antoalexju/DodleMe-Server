@@ -22,7 +22,7 @@ module.exports = db.sequelize.define('Answer', {
     },
     answer: {
         type: sequelize.DataTypes.ENUM('yes','no','ifneeded'),
-        allowNull: true
+        allowNull: false
     }
 }, {
     tableName: 'Answer'

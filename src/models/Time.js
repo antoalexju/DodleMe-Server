@@ -10,15 +10,15 @@ module.exports = db.sequelize.define('Time', {
   },
   beginDate: {
     type: sequelize.DataTypes.DATE,
-    allowNull: true
+    allowNull: false
   },
   endDate: {
     type: sequelize.DataTypes.DATE,
-    allowNull: true
+    allowNull: false
   },
   idEventAttached: {
     type: sequelize.DataTypes.INTEGER(10).UNSIGNED,
-    allowNull: true,
+    allowNull: false,
     references: {
       model: 'Event',
       key: 'idEvent'

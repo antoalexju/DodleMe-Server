@@ -13,19 +13,19 @@ module.exports = db.sequelize.define('IdentifiedUser', {
   },
   firstName: {
     type: sequelize.DataTypes.STRING(25),
-    allowNull: true
+    allowNull: false
   },
   lastName: {
     type: sequelize.DataTypes.STRING(25),
-    allowNull: true
+    allowNull: false
   },
   mail: {
     type: sequelize.DataTypes.STRING(25),
-    allowNull: true
+    allowNull: false
   },
   pass: {
     type: sequelize.DataTypes.CHAR(64),
-    allowNull: true
+    allowNull: false
   },
   organisation: {
     type: sequelize.DataTypes.STRING(25),
@@ -33,7 +33,7 @@ module.exports = db.sequelize.define('IdentifiedUser', {
   },
   signupDate: {
     type: sequelize.DataTypes.DATE,
-    allowNull: true
+    allowNull: false
   }
 }, {
   tableName: 'IdentifiedUser'
