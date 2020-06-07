@@ -65,6 +65,28 @@ module.exports = {
 
     },
     create: function (req, res) {
-        //TODO
-    }
+        return rel.Event.create(
+            {
+                creator: 1,
+                linkId: 'b',
+                title: 'evt',
+                location: 'ut3',
+                description: 'test',
+                limitDate: null,
+                status: "openned",
+                isPrivate: 0,
+                finalDate: null
+
+            }).then(user => {
+            res.status(200).json({
+                message: "L'événement a bien été enregistré !"
+            });
+        });
+    },
+    newAnswer: function (req, res) {
+        //TODO:
+    },
+    changeAnswer: function (req, res) {
+        //TODO:
+    },
 }

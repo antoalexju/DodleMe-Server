@@ -24,10 +24,5 @@ User.hasMany(Answer, {foreignKey: 'idUser', as: 'answers'});
 Answer.belongsTo(User, {foreignKey: 'idUser', as: 'user'});
 
 module.exports = {
-    User: User,
-    Event: Event,
-    Time: Time,
-    Answer: Answer,
-    Participant: Participant,
-    IdentifiedUser: IdentifiedUser
+    User,Event,Time,Answer,Participant,IdentifiedUser
 }

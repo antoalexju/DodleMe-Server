@@ -1,59 +1,37 @@
 //imports
 const express = require('express');
-const userController = require('./routes/userController');
-const eventController = require('./routes/eventController');
-const apiController = require('./routes/apiController');
+const api = require('./routes/apiController');
+const user = require('./routes/userController');
+const event = require('./routes/eventController');
 
-const POST = 0;
-const GET = 1;
+const apiRouter = express.Router();
+const route = api.makeRoute;
 
-/**
- * simplifie la creation de route
- * @param apiRouter
- * @param prefix
- * @param method
- * @param controller
- */
-function makeRoute(apiRouter, prefix, method, controller) {
-    switch (method) {
-        case POST:
-            apiRouter.route(prefix).get(apiController.pleasePost);
-            apiRouter.route(prefix).post(controller);
-            break;
-        case GET:
-            apiRouter.route(prefix).get(controller);
-            apiRouter.route(prefix).post(apiController.pleasePost);
-            break;
-        default:
-            apiRouter.route(prefix).post(apiController.badMethod);
-    }
-}
 
 //routing
 exports.router = (function () {
-    let apiRouter = express.Router();
-
-    //app routing
-    let user = '/user';
-    let event = '/event';
 
     //USER ROUTING
-    makeRoute(apiRouter, user + '/register', POST, userController.register);
-    makeRoute(apiRouter, user + '/login', POST, userController.login);
-    makeRoute(apiRouter, user + '/list', GET, userController.list);
-    makeRoute(apiRouter, user + '/:id', GET, userController.getUser);
-    makeRoute(apiRouter, user + '/:id' + event + '/list', GET, userController.getUserEvents);
-    makeRoute(apiRouter, user + '/:id' + event + '/:idE', GET, userController.getUserEvent);
+    route(apiRouter, '/user/register', api.POST, user.register);
+    route(apiRouter, '/user/login', api.POST, user.login);
+    route(apiRouter, '/user/list', api.GET, user.list);
+    route(apiRouter, '/user/:id', api.GET, user.getUser);
+    route(apiRouter, '/user/:id/event/list', api.GET, user.getUserEvents);
+    route(apiRouter, '/user/:id/event/:idE', api.GET, user.getUserEvent);
 
     //EVENT ROUTING
-    makeRoute(apiRouter, event + '/list', GET, eventController.list)
-    makeRoute(apiRouter, event + '/:id', GET, eventController.getEvent);
-    makeRoute(apiRouter, event + '/create', GET, eventController.create);
+    route(apiRouter, '/event/create', api.POST, event.create);
+    route(apiRouter, '/event/list', api.GET, event.list)
+    route(apiRouter, '/event/:id', api.GET, event.getEvent);
+    route(apiRouter, '/event/:id/answer', api.POST, event.newAnswer);
+    route(apiRouter, '/event/:id/answer', api.PATCH, event.changeAnswer);
 
     //api routing
-    makeRoute(apiRouter, '/version/', GET, apiController.version);
-    makeRoute(apiRouter, '*', GET, apiController.badUrl);
-    makeRoute(apiRouter, '*', POST, apiController.badUrl);
+    route(apiRouter, '/version/', api.GET, api.version);
+    route(apiRouter, '*', api.GET, api.badUrl);
+    route(apiRouter, '*', api.POST, api.badUrl);
+    route(apiRouter, '*', api.PUT, api.badUrl);
+    route(apiRouter, '*', api.PATCH, api.badUrl);
 
     return apiRouter;
 

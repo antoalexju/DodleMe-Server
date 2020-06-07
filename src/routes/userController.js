@@ -26,9 +26,7 @@ module.exports = {
             res.status(200).json({
                 message: "L'utilisateur a bien été enregistré !"
             });
-        })
-        /*
-        return */
+        });
     },
     login: function (req, res) {
         //TODO
