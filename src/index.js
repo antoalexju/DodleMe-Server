@@ -8,14 +8,14 @@ const apiRouter = require('./apiRouter').router;
 const server = express();
 
 //server config
-server.use(express.static('../DodleMe-WebUI/dist/'));
+server.use(express.static('/home/dodle/DodleMe-WebUI/dist/'));
 server.use(bodyParser.urlencoded({extended: true}));
 server.use(bodyParser.json());
 server.set('json spaces', 4);
 const port = 80;
 
 server.get('/', function (req, res) {
-    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
+    res.sendFile('index.html', { root: '/home/dodle/DodleMe-WebUI/dist/' })
 });
 
 server.use('/api', apiRouter);
