@@ -39,21 +39,16 @@ exports.router = (function () {
 
     //USER ROUTING
     makeRoute(apiRouter, user + '/register', POST, userController.register);
-
     makeRoute(apiRouter, user + '/login', POST, userController.login);
-
     makeRoute(apiRouter, user + '/list', GET, userController.list);
-
     makeRoute(apiRouter, user + '/:id', GET, userController.getUser);
-
     makeRoute(apiRouter, user + '/:id' + event + '/list', GET, userController.getUserEvents);
-
     makeRoute(apiRouter, user + '/:id' + event + '/:idE', GET, userController.getUserEvent);
 
     //EVENT ROUTING
     makeRoute(apiRouter, event + '/list', GET, eventController.list)
-
     makeRoute(apiRouter, event + '/:id', GET, eventController.getEvent);
+    makeRoute(apiRouter, event + '/create', GET, eventController.create);
 
     //api routing
     makeRoute(apiRouter, '/version/', GET, apiController.version);

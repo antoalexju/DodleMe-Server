@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const db = require('../config/db.js');
+const db = require('../database.js');
 
 module.exports = db.sequelize.define('User', {
     idUser: {
@@ -11,6 +11,10 @@ module.exports = db.sequelize.define('User', {
     alias: {
       type: sequelize.DataTypes.STRING(25),
       allowNull: false
+    },
+    signupDate:{
+        type: sequelize.DataTypes.DATE,
+        autocomplete: true
     }
   }, {
     tableName: 'User'

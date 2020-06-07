@@ -1,24 +1,34 @@
 //imports
 //let bcrypt = require('bcrypt');
-const User = require('../models/User');
-const Event = require('../models/Event');
-const Time = require('../models/Time');
-const Answer = require('../models/Answer');
-const IdentifiedUser = require('../models/IdentifiedUser');
+const rel = require('../models/relation');
 
-User.hasMany(IdentifiedUser, {foreignKey: 'idIdentifiedUser', as: 'information'});
-IdentifiedUser.belongsTo(User, {foreignKey: 'idIdentifiedUser', as: 'information'});
-
-User.hasMany(Answer, {foreignKey: 'idUser', as: 'answers'});
-Answer.belongsTo(User, {foreignKey: 'idUser', as: 'answers'});
 
 //routing
 module.exports = {
     register: function (req, res) {
-        //TODO
-        return res.status(200).json({
-            message: "L'utilisateur a bien été enregistré !"
-        });
+        return rel.User.create(
+            {
+                alias: 'Test1',
+                information: [{
+                    firstName: req.query.firstName,
+                    lastName: req.query.lastName,
+                    pass: req.query.password,
+                    mail: req.query.mail,
+                    organisation: req.query.organisation
+                }]
+            },
+            {
+               include: [{
+                   model: rel.IdentifiedUser,
+                   as: 'information'
+               }]
+            }).then(user => {
+            res.status(200).json({
+                message: "L'utilisateur a bien été enregistré !"
+            });
+        })
+        /*
+        return */
     },
     login: function (req, res) {
         //TODO
@@ -27,7 +37,7 @@ module.exports = {
         });
     },
     list: function (req, res) {
-        return User.findAll()
+        return rel.User.findAll()
             .then(users => {
                 res.status(200).json(users);
             })
@@ -39,17 +49,21 @@ module.exports = {
             })
     },
     getUser: function (req, res) {
-        return User.findOne({
+        return rel.User.findOne({
             where: {
                 idUser: req.params.id
             },
             include: [
                 {
-                    model: IdentifiedUser,
+                    model: db.IdentifiedUser,
                     required: false,
-                    as: 'information'
+                    as: 'information',
+                    attributes: {
+                        exclude: ['pass', 'idIdentifiedUser']
+                    }
                 }
             ],
+
         }).then(user => {
             if(user != null) res.status(200).json(user);
             else throw new Error("User: " + req.params.id + " not found");
@@ -61,13 +75,13 @@ module.exports = {
         })
     },
     getUserEvents: function (req, res) {
-        return User.findAll({
+        return rel.User.findAll({
             where: {
                 idUser: req.params.id
             },
             include: [
                 {
-                    model: Event,
+                    model: rel.Event,
                     required: false,
                     as: 'events'
                 }
@@ -83,13 +97,13 @@ module.exports = {
         })
     },
     getUserEvent: function (req, res) {
-        return User.findAll({
+        return rel.User.findAll({
             where: {
                 idUser: req.params.id
             },
             include: [
                 {
-                    model: Event,
+                    model: rel.Event,
                     required: true,
                     as: 'events',
                     where: {
@@ -97,9 +111,20 @@ module.exports = {
                     }
                 },
                 {
-                    model: Answer,
+                    model: rel.Answer,
                     required: false,
-                    as: 'answers'
+                    as: 'answers',
+                    attributes: {
+                        exclude: ['idUser']
+                    },
+                    include: {
+                        model: rel.Time,
+                        required: false,
+                        as: 'time',
+                        attributes: {
+                            exclude: ['idEventAttached', 'idTime'],
+                        },
+                    }
                 }
             ],
         }).then(user => {

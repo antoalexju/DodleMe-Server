@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
-const config = require('../config/config.json');
+const config = require('./config/config.json');
 
-const db = {};
+const database = {};
 const sequelize = new Sequelize(config.database, config.username, config.password, {
     host: config.host,
     dialect: config.dialect,
@@ -23,7 +23,7 @@ const sequelize = new Sequelize(config.database, config.username, config.passwor
 
 })
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+database.sequelize = sequelize;
+database.Sequelize = Sequelize;
 
-module.exports = db;
+module.exports = database;

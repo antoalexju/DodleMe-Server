@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const db = require('../config/db.js');
+const db = require('../database.js');
 
 module.exports = db.sequelize.define('Participant', {
   idEvent: {

@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-const db = require('../config/db.js');
+const db = require('../database.js');
 
 module.exports = db.sequelize.define('IdentifiedUser', {
   idIdentifiedUser: {
@@ -30,10 +30,6 @@ module.exports = db.sequelize.define('IdentifiedUser', {
   organisation: {
     type: sequelize.DataTypes.STRING(25),
     allowNull: true
-  },
-  signupDate: {
-    type: sequelize.DataTypes.DATE,
-    allowNull: false
   }
 }, {
   tableName: 'IdentifiedUser'
