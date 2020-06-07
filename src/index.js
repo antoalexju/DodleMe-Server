@@ -14,6 +14,10 @@ server.use(bodyParser.json());
 server.set('json spaces', 4);
 const port = 80;
 
+server.get('/', function (req, res) {
+    res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
+});
+
 server.use('/api', apiRouter);
 
 server.get('/api', (req, res) => {
