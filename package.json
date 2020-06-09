@@ -27,7 +27,6 @@
     "forever-service": "^0.5.11",
     "mariadb": "^2.4.0",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.12",
-    "underscore": "^1.10.2"
+    "sequelize": "^5.21.12"
   }
 }

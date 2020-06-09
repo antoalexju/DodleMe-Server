@@ -14,30 +14,16 @@ server.use(bodyParser.json());
 server.set('json spaces', 4);
 const port = 80;
 
-const _ = require('underscore');
-
-function allowCrossDomain(req, res, next) {
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-
-    var origin = req.headers.origin;
-    if (_.contains(app.get('allowed_origins'), origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-
-    if (req.method === 'OPTIONS') {
-        res.send(200);
-    } else {
-        next();
-    }
-}
-
-app.use(allowCrossDomain);
-
 server.get('/app', function (req, res) {
     res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
 });
 
 server.use('/api', apiRouter);
+
+server.options('/api', function (req, res, next) {
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+    res.send();
+})
 
 
 server.listen(port, '0.0.0.0', function () {
