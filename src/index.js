@@ -14,15 +14,27 @@ server.use(bodyParser.json());
 server.set('json spaces', 4);
 const port = 80;
 
+const _ = require('underscore');
 
+function allowCrossDomain(req, res, next) {
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+
+    var origin = req.headers.origin;
+    if (_.contains(app.get('allowed_origins'), origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
+    if (req.method === 'OPTIONS') {
+        res.send(200);
+    } else {
+        next();
+    }
+}
+
+app.use(allowCrossDomain);
 
 server.get('/app', function (req, res) {
     res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
-});
-
-server.use(function(req, res) {
-    res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 });
 
 server.use('/api', apiRouter);
