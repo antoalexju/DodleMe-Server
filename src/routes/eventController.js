@@ -35,7 +35,10 @@ module.exports = {
                     attributes: [],
                 },
             ],
-            group : ['Event.idEvent']
+            group : ['Event.idEvent'],
+            order: [
+                ['idEvent', 'DESC']
+            ],
         })
         .then(events => {
             res.status(200).json(events);
