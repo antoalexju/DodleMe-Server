@@ -6,7 +6,7 @@ const Participant = require('../models/Participant');
 const IdentifiedUser = require('../models/IdentifiedUser');
 
 User.hasMany(Event, {foreignKey: 'creator', as: 'events'});
-Event.belongsTo(User, {foreignKey: 'creator', as: 'user'});
+Event.belongsTo(User, {foreignKey: 'creator', as: 'userCreator'});
 
 Event.hasMany(Time, {foreignKey: 'idEventAttached', as: 'times'});
 Time.belongsTo(Event, {foreignKey: 'idEventAttached', as: 'event'});

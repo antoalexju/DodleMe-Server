@@ -1,6 +1,7 @@
 //Exemple: https://github.com/rwieruch/node-express-server-rest-api/blob/master/src/index.js
 
 //imports
+const cors = require('cors');
 const express = require('express');
 const bodyParser = require('body-parser');
 const apiRouter = require('./apiRouter').router;
@@ -14,10 +15,10 @@ server.use(bodyParser.json());
 server.set('json spaces', 4);
 const port = 80;
 
-server.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-})
+server.use(cors({ // https://expressjs.com/en/resources/middleware/cors.html
+    origin: "http://localhost:4200",
+    optionsSuccessStatus: 200
+}));
 
 server.get('/app', function (req, res) {
     res.sendFile('index.html', { root: '../DodleMe-WebUI/dist/' })
