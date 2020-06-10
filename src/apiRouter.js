@@ -105,7 +105,7 @@ exports.router = (function () {
      */
     route(apiRouter, '/event/:id',                  api.GET,    event.getEvent);
     /**
-     * @api {post} /event/:id/time/create Permet créer un créneau pour l'évenement ayant l'identifiant <code>id</code> (Non implémenté)
+     * @api {post} /event/:id/time/create Permet créer un créneau pour un évenement donné (Non implémenté)
      * @apiName timeCreate
      * @apiGroup Evenement
      * @apiParam {Number} idEvent Identifiant <code>id</code> de l'évenement auquel on ajoute un créneau
@@ -115,7 +115,7 @@ exports.router = (function () {
      */
     route(apiRouter, '/event/:id/time/create',      api.POST,   time.create);
     /**
-     * @api {patch} /event/:id/time/:idT Permet modifier un créneau ayant l'identifiant <code>idT</code> pour l'évenement ayant l'identifiant <code>id</code> (Non implémenté)
+     * @api {patch} /event/:id/time/:idT Permet modifier un créneau donné pour un évenement donné (Non implémenté)
      * @apiName changeTime
      * @apiGroup Evenement
      * @apiParam {Date} beginDate Date de début du créneau
@@ -124,7 +124,7 @@ exports.router = (function () {
      */
     route(apiRouter, '/event/:id/time/:idT',        api.PATCH,  time.changeTime);
     /**
-     * @api {post} /event/:id/time/:idT/answer Permet de créer une réponse pour un créneau ayant l'identifiant <code>idT</code> dans l'évenement ayant l'identifiant <code>id</code> (Non implémenté)
+     * @api {post} /event/:id/time/:idT/answer Permet de créer une réponse pour un créneau donné dans un évenement donné (Non implémenté)
      * @apiName answerCreate
      * @apiGroup Evenement
      * @apiParam {Date} beginDate Date de début du créneau
@@ -134,7 +134,7 @@ exports.router = (function () {
      */
     route(apiRouter, '/event/:id/time/:idT/answer', api.POST,   answer.create);
     /**
-     * @api {patch} /event/:id/time/:idT/answer Permet de modifier une réponse pour un créneau ayant l'identifiant <code>idT</code> dans l'évenement ayant l'identifiant <code>id</code> (Non implémenté)
+     * @api {patch} /event/:id/time/:idT/answer Permet de modifier une réponse pour un créneau donné dans un évenement donné (Non implémenté)
      * @apiName changeAnswer
      * @apiGroup Evenement
      * @apiParam {Date} beginDate Date de début du créneau
