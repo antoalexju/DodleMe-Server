@@ -15,6 +15,7 @@ server.use(bodyParser.json());
 
 server.set('json spaces', 4);
 const port = 80;
+let apiDoc = require('node-api-doc-generator')(server,'localhost',80);
 
 server.use(cors({ // https://expressjs.com/en/resources/middleware/cors.html
     origin: "http://localhost:4200",

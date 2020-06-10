@@ -28,6 +28,7 @@
     "forever-service": "^0.5.11",
     "mariadb": "^2.4.0",
     "mysql2": "^2.1.0",
+    "node-api-doc-generator": "^1.1.1",
     "sequelize": "^5.21.12"
   }
 }
