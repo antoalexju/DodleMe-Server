@@ -95,20 +95,21 @@ module.exports = {
     },
     create: function (req, res) {
         rel.Event.create({
-                creator: req.query.creator,
-                linkId: req.query.linkId,
-                title: req.query.title,
-                location: req.query.location,
-                description: req.query.description,
-                limitDate: req.query.limitDate,
-                status: req.query.status,
-                isPrivate: req.query.isPrivate,
-                finalDate: req.query.finalDate
+                creator: req.body.creator,
+                linkId: req.body.linkId,
+                title: req.body.title,
+                location: req.body.location,
+                description: req.body.description,
+                limitDate: req.body.limitDate,
+                status: req.body.status,
+                isPrivate: req.body.isPrivate,
+                finalDate: req.body.finalDate
         })
         .then(event => {
             res.status(200).json({
                 message: "L'événement a bien été enregistré !",
-                details: event
+                details: event,
+                idEvent: event.idEvent
             })
         })
         .catch(err => {
