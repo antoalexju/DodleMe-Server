@@ -24,4 +24,5 @@ node_modules
 # System Files
 .DS_Store
 Thumbs.database
+error.log
 

@@ -1,4 +1,4 @@
-const rel = require('../models/relation');
+const rel = require('../database/models/relation');
 
 module.exports = {
     create: function (req, res) {

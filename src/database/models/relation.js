@@ -1,9 +1,9 @@
-const User = require('../models/User');
-const Event = require('../models/Event');
-const Time = require('../models/Time');
-const Answer = require('../models/Answer');
-const Participant = require('../models/Participant');
-const IdentifiedUser = require('../models/IdentifiedUser');
+const User = require('./User');
+const Event = require('./Event');
+const Time = require('./Time');
+const Answer = require('./Answer');
+const Participant = require('./Participant');
+const IdentifiedUser = require('./IdentifiedUser');
 
 User.hasMany(Event, {foreignKey: 'creator', as: 'events'});
 Event.belongsTo(User, {foreignKey: 'creator', as: 'userCreator'});

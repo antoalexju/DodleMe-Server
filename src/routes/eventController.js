@@ -1,6 +1,6 @@
-const db = require("../database");
+const db = require("../database/database");
 
-const rel = require('../models/relation');
+const rel = require('../database/models/relation');
 
 //routing
 module.exports = {
@@ -53,7 +53,7 @@ module.exports = {
     getEvent: function (req, res) {
         rel.Event.findOne({
             where: {
-                idEvent: req.params.id
+                linkId: req.params.id
             },
             include: [
                 {
@@ -85,6 +85,7 @@ module.exports = {
                         }
                     }
                 }]
+
         })
         .then(events => {
             res.status(200).json(events);
@@ -112,7 +113,7 @@ module.exports = {
             res.status(200).json({
                 message: "L'événement a bien été enregistré !",
                 details: event,
-                idEvent: event.idEvent
+                linkId: event.linkId
             })
         })
         .catch(err => {

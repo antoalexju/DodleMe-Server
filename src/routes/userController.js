@@ -1,6 +1,6 @@
 //imports
 //let bcrypt = require('bcrypt');
-const rel = require('../models/relation');
+const rel = require('../database/models/relation');
 
 
 //routing
