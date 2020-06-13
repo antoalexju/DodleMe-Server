@@ -2,6 +2,8 @@ const db = require("../database/database");
 
 const rel = require('../database/models/relation');
 
+const shortId = require('shortid');
+
 //routing
 module.exports = {
     list: function (req, res) {
@@ -87,8 +89,9 @@ module.exports = {
                 }]
 
         })
-        .then(events => {
-            res.status(200).json(events);
+        .then(event => {
+            if(event != null) res.status(200).json(event);
+            else throw new Error("Une erreur s'est produite dans la requete")
         })
         .catch(err => {
             res.status(404).json({
@@ -100,7 +103,7 @@ module.exports = {
     create: function (req, res) {
         rel.Event.create({
                 creator: req.body.creator,
-                linkId: req.body.linkId,
+                linkId: generateLinkId(),
                 title: req.body.title,
                 location: req.body.location,
                 description: req.body.description,
@@ -123,4 +126,8 @@ module.exports = {
             });
         });
     }
+}
+
+function generateLinkId(){
+    return shortId.generate();
 }

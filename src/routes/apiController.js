@@ -6,6 +6,9 @@ const PUT = 2;
 const PATCH = 3;
 const DELETE = 4;
 
+const shortId = require('shortid');
+
+
 /**
  * simplifie la creation de route
  * @param apiRouter
