@@ -25,6 +25,7 @@ exports.router = (function () {
     route(apiRouter, '/event/create',               api.POST,   event.create);
     route(apiRouter, '/event/list',                 api.GET,    event.list)
     route(apiRouter, '/event/:id',                  api.GET,    event.getEvent);
+    route(apiRouter, '/event/:id/time/list',        api.GET,    event.getEventTimes);
     route(apiRouter, '/event/:id/time/create',      api.POST,   time.create);
     route(apiRouter, '/event/:id/time/:idT',        api.PATCH,  time.changeTime);
     route(apiRouter, '/event/:id/time/:idT/answer', api.POST,   answer.create);

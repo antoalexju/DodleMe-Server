@@ -1,11 +1,15 @@
+const evt = require('./eventController');
+
 const rel = require('../database/models/relation');
 
 module.exports = {
-    create: function (req, res) {
+    create: async function (req, res) {
+        let e = await evt.getIdFromLink(req.params.id);
+        console.log(e.idEvent);
         rel.Time.create({
             beginDate: req.body.beginDate,
             endDate: req.body.endDate,
-            idEventAttached: req.body.idEventAttached
+            idEventAttached: e.idEvent
         })
             .then(time => {
                 res.status(200).json({
@@ -24,7 +28,4 @@ module.exports = {
     changeTime: function (req, res) {
 
     },
-    getTimeList: function (req,res) {
-
-    }
 }

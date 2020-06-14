@@ -14,7 +14,7 @@ module.exports = {
                 [db.sequelize.fn('date_format', db.sequelize.fn('min', db.sequelize.col('times.beginDate')), '%Y-%m-%d'),'begin'],
                 [db.sequelize.fn('date_format', db.sequelize.fn('max', db.sequelize.col('times.endDate')), '%Y-%m-%d'),'end'],
                 [db.sequelize.col('userCreator.alias'), 'creatorname'],
-                [db.sequelize.literal('(SELECT COUNT(`Participant`.`idEvent`) FROM `Participant` WHERE `Participant`.`idEvent` = `Event`.`idEvent` )'), 'participants']
+                [db.sequelize.literal('(SELECT COUNT(`Participant`.`idEvent`) FROM `Participant` WHERE `Participant`.`idEvent` = `Event`.`idEvent` )'), 'participants'],
             ],
             include : [
                 {
@@ -46,9 +46,9 @@ module.exports = {
             res.status(200).json(events);
         })
         .catch(err => {
-            res.status(404).json({
+            res.status(500).json({
                 error: err + '',
-                code: 404
+                code: 500
             });
         });
     },
@@ -57,7 +57,18 @@ module.exports = {
             where: {
                 linkId: req.params.id
             },
+            attributes: {
+                exclude: ['creator']
+            },
             include: [
+                {
+                    model: rel.User,
+                    required: true,
+                    as: 'userCreator',
+                    attributes: {
+                        exclude: ['signupDate']
+                    }
+                },
                 {
                     model: rel.Participant,
                     required: false,
@@ -82,14 +93,14 @@ module.exports = {
                             required: true,
                             as: 'user',
                             attributes: {
-                                exclude: ['idUser', 'signupDate']
+                                exclude: ['signupDate']
                             }
                         }
                     }
                 }]
 
         })
-        .then(event => {
+            .then(event => {
             if(event != null) res.status(200).json(event);
             else throw new Error("Une erreur s'est produite dans la requete")
         })
@@ -102,7 +113,7 @@ module.exports = {
     },
     create: function (req, res) {
         rel.Event.create({
-                creator: req.body.creator,
+                creator: req.body.idUser,
                 linkId: generateLinkId(),
                 title: req.body.title,
                 location: req.body.location,
@@ -112,19 +123,85 @@ module.exports = {
                 isPrivate: req.body.isPrivate,
                 finalDate: req.body.finalDate
         })
-        .then(event => {
-            res.status(200).json({
-                message: "L'événement a bien été enregistré !",
-                details: event,
-                linkId: event.linkId
-            })
+            .then(event => {
+                res.status(200).json({
+                    message: "L'événement a bien été enregistré !",
+                    details: event,
+                    linkId: event.linkId
+                })
         })
-        .catch(err => {
-            res.status(404).json({
-                error: err + '',
-                code: 404
-            });
+            .catch(err => {
+                res.status(500).json({
+                    error: err + '',
+                    code: 500
+                });
         });
+    },
+    getEventTimes: function(req, res){
+        rel.Event.findAll({
+            where: {
+                linkId: req.params.id
+            },
+            attributes: [],
+            include: [
+                {
+                    model: rel.Time,
+                    required: false,
+                    as: 'times',
+                    attributes: {
+                        exclude: ['idEventAttached'],
+                        include:[
+                            //[db.sequelize.fn('date_format',db.sequelize.col('times.beginDate'), '%Y/%m/%d'),'beginDate']
+
+                            //[db.sequelize.fn('date_format',db.sequelize.col('times.endDate'), '%Y/%m/%d'),'endDate'],
+
+                            [db.sequelize.fn('datediff',db.sequelize.col('times.beginDate'), db.sequelize.col('times.endDate')),'duration'],
+                        ]
+                    },
+                    include: {
+                        model: rel.Answer,
+                        required: false,
+                        as: 'answers',
+                        attributes: {
+                            exclude: ['idTime']
+                        },
+                        include:{
+                            model: rel.User,
+                            required: true,
+                            as: 'user',
+                            attributes: {
+                                exclude: ['idUser', 'signupDate']
+                            }
+                        }
+                    }
+                }
+            ]
+        })
+            .then(times => {
+                if(times !== null || times[0] !== undefined) {
+                    res.status(200).json(times[0].times);
+                }
+                else throw new Error("Une erreur s'est produite dans la requete")
+        })
+            .catch(err => {
+                res.status(500).json({
+                    error: err + '',
+                    code: 500
+                });
+            });
+    },
+    getIdFromLink(linkId){
+        return new Promise( resolve => {
+            rel.Event.findAll({
+                where: {
+                    linkId: linkId
+                }
+            }).then(event => {
+                resolve(event[0]);
+            }).catch(err => {
+                resolve(err) ;
+            });
+        })
     }
 }
 
