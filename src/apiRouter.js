@@ -20,15 +20,15 @@ exports.router = (function () {
      * @apiName register
      * @apiGroup Utilisateur
      *
+     * @apiParam {Boolean} anon Est-ce une inscription anonyme ?
      * @apiParam {String} firstname Prenom de l'utilisateur.
      * @apiParam {String} lastName Nom de famille de l'utilisateur.
      * @apiParam {String} password Mod de passe de l'utilisateur.
      * @apiParam {String} mail Adresse email de l'utilisateur.
-     * @apiParam {String} organisation Organisation/Entreprise de l'utilisateur.
      */
     route(apiRouter, '/user/register',              api.POST,   user.register);
     /**
-     * @api {post} /user/login Permet à l'utilisateur de se connecter (Non fonctionnel)
+     * @api {post} /user/login Permet à l'utilisateur de se connecter
      * @apiName login
      * @apiGroup Utilisateur
      * @apiParam {String} mail Adresse email de l'utilisateur.
