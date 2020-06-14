@@ -58,10 +58,48 @@ module.exports = {
         }
     },
     login: function (req, res) {
-        //TODO
-        res.status(200).json({
-            message: "Connexion réussie !"
-        });
+        rel.IdentifiedUser.findAll({
+            where: {
+                mail: req.body.mail
+            }
+        })
+            .then(user => {
+                if(user != null){
+                    /**
+                    let truePassword = user[0].password;
+                    let testPassword = req.body.password;
+
+                    console.log(user[0], truePassword, testPassword)
+
+                    bcrypt.compare(testPassword, truePassword, function(err, res) {
+                        if(res) {
+                            console.log("yes")
+                            res.status(200).json({
+                                user: user,
+                                message: "Connexion réussie !",
+                                code: 200
+                            });
+                        } else {
+                            console.log('no');
+                            throw new Error("Mauvais mot de passe");
+                        }
+                    });**/
+                    res.status(200).json({
+                        user: user,
+                        message: "Connexion réussie !",
+                        code: 200
+                    });
+                }
+                else{
+                    throw new Error("Aucun utilisateur n'a été trouvé");
+                }
+            })
+            .catch(err => {
+                res.status(404).json({
+                    error: err,
+                    code: 404
+                });
+            })
     },
     list: function (req, res) {
         rel.User.findAll()
