@@ -1,5 +1,5 @@
 //imports
-//let bcrypt = require('bcrypt');
+let bcrypt = require('bcrypt');
 const rel = require('../database/models/relation');
 
 
@@ -25,12 +25,13 @@ module.exports = {
                 });
                 break;
             case 'false':
+                let hashedPass = bcrypt.hashSync(req.body.password, 10)
                 rel.User.create({
                         alias: req.body.firstName + ' ' + req.body.lastName,
                         information: [{
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            pass: req.body.password,
+                            pass: hashedPass,
                             mail: req.body.mail,
                             organisation: req.body.organisation
                         }]
