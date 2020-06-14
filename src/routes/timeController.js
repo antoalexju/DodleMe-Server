@@ -20,7 +20,7 @@ module.exports = {
             })
             .catch(err => {
                 res.status(404).json({
-                    error: err + '',
+                    error: err,
                     code: 404
                 });
             });

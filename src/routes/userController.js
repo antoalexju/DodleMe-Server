@@ -6,26 +6,55 @@ const rel = require('../database/models/relation');
 //routing
 module.exports = {
     register: function (req, res) {
-        rel.User.create({
-            alias: 'Test1',
-            information: [{
-                firstName: req.query.firstName,
-                lastName: req.query.lastName,
-                pass: req.query.password,
-                mail: req.query.mail,
-                organisation: req.query.organisation
-            }]
-        },
-        {
-           include: [{
-               model: rel.IdentifiedUser,
-               as: 'information'
-           }]
-        }).then(user => {
-            res.status(200).json({
-                message: "L'utilisateur a bien été enregistré !"
-            });
-        });
+        switch (req.query.anon) {
+            case 'true':
+                rel.User.create({
+                        alias: req.body.alias
+                }).then(user => {
+                    res.status(200).json({
+                        message: "L'utilisateur a bien été enregistré !",
+                        code: 200,
+                        idUser: user.idUser
+                    });
+                }).catch(err => {
+                    res.status(500).json({
+                        message: "L'utilisateur n'a pas pu être enregister",
+                        code: 500,
+                        error: err
+                    });
+                });
+                break;
+            case 'false':
+                rel.User.create({
+                        alias: req.body.firstName + ' ' + req.body.lastName,
+                        information: [{
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            pass: req.body.password,
+                            mail: req.body.mail,
+                            organisation: req.body.organisation
+                        }]
+                    },
+                    {
+                        include: [{
+                            model: rel.IdentifiedUser,
+                            as: 'information'
+                        }]
+                    }).then(user => {
+                        res.status(200).json({
+                            message: "L'utilisateur a bien été enregistré !"
+                        });
+                    }).catch(err => {
+                        res.status(500).json({
+                            message: "L'utilisateur n'a pas pu être enregister",
+                            code: 500,
+                            error: err
+                        });
+                    });
+                break;
+            default:
+                console.log(req.query.anon)
+        }
     },
     login: function (req, res) {
         //TODO
@@ -40,7 +69,7 @@ module.exports = {
         })
         .catch(err => {
             res.status(404).json({
-                error: err + '',
+                error: err,
                 code: 404
             });
         })
@@ -68,7 +97,7 @@ module.exports = {
         })
         .catch(err => {
             res.status(404).json({
-                error: err + '',
+                error: err,
                 code: 404
             });
         })
@@ -95,7 +124,7 @@ module.exports = {
         })
         .catch(err => {
             res.status(404).json({
-                error: err + '',
+                error: err,
                 code: 404
             });
         })
@@ -133,7 +162,7 @@ module.exports = {
         })
         .catch(err => {
             res.status(404).json({
-               error: err + '',
+               error: err,
                code: 404
             });
         })

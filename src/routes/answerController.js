@@ -12,7 +12,7 @@ module.exports = {
                 message: "Le nouveau choix de date a bien été enregistré !"
             }).catch(err => {
                 res.status(404).json({
-                    error: err + '',
+                    error: err,
                     code: 404
                 });
             });
@@ -29,7 +29,7 @@ module.exports = {
                 message: "Le nouveau choix de date a bien été enregistré !"
             }).catch(err => {
                 res.status(404).json({
-                    error: err + '',
+                    error: err,
                     code: 404
                 });
             });

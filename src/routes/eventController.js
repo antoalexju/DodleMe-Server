@@ -113,7 +113,7 @@ module.exports = {
     },
     create: function (req, res) {
         rel.Event.create({
-                creator: req.body.idUser,
+                creator: req.body.creator,
                 linkId: generateLinkId(),
                 title: req.body.title,
                 location: req.body.location,
@@ -132,7 +132,7 @@ module.exports = {
         })
             .catch(err => {
                 res.status(500).json({
-                    error: err + '',
+                    error: err,
                     code: 500
                 });
         });
@@ -185,7 +185,7 @@ module.exports = {
         })
             .catch(err => {
                 res.status(500).json({
-                    error: err + '',
+                    error: err,
                     code: 500
                 });
             });
