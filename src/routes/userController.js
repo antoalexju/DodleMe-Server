@@ -66,6 +66,8 @@ module.exports = {
             .then(user => {
                 if(user != null){
                     /**
+                     * NON FINI...
+                     *
                     let truePassword = user[0].password;
                     let testPassword = req.body.password;
 
